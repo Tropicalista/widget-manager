@@ -30,7 +30,6 @@ function getWidgetInstanceURL(){ return '#event.buildLink( prc.cbAdminEntryPoint
 function getWidgetPreviewURL(){ return '#event.buildLink( prc.cbAdminEntryPoint & ".widgets.preview" )#'; }
 
 function insertStore( store ){ 
-    console.log(store)
     var el = document.createElement('li');
     el.innerHTML = store.widgetObject + '<i class="fa fa-times js-remove"></i>';
     $(el).attr('data-store', store.widgetObject );
@@ -52,15 +51,14 @@ function deleteStore( id ){
 function insertEditorContent( store, content ){
     $.post('#event.buildLink( prc.cbAdminEntryPoint & ".module.WidgetManager.widget.save" )#',
     {
-        widgetContent:JSON.stringify(content),
+        widgetContent: content,
         interceptionPoint: store,
         widgetId: ""
     },
     function(data, status){
-        //insertStore( data )
     })
-    .success(function() {
-        console.log( data )
+    .success(function(data) {
+        insertStore( data )
     })
     .fail(function() {
         console.log( "error" );
