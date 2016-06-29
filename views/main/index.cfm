@@ -10,9 +10,11 @@
 		        	<cfloop array="#prc.widgets#" index="w">
 		        		<cfif isJson(w.getWidgetContent())>
 		        			<cfset widgetArgs = deserializeJson(w.getWidgetContent())>
-		        		<li data-id="#w.getWidgetId()#">#widgetArgs.widgetName#<i class="fa fa-times js-remove"></i></li>
+		        		<li data-id="#w.getWidgetId()#">
+		        			<b data-toggle="tooltip" data-html="true" data-placement="top" title="#serializeJSON(widgetArgs)#">#widgetArgs.widgetName#</b> <i class="fa fa-times js-remove"></i>
+		        		</li>
 		        			<cfelse>
-		        		<li data-id="#w.getWidgetId()#">#w.getWidgetContent()#<i class="fa fa-times js-remove"></i></li>
+		        		<li data-id="#w.getWidgetId()#">#w.getWidgetContent()# <i class="fa fa-times js-remove"></i></li>
 		        		</cfif>
 		        	</cfloop>
 		        </ul>

@@ -92,6 +92,29 @@ function updatePreview() {
         } );
 }
 
+function buildInfobarText( vals, count ) {
+    var blacklistKeys = ['widgetName','widgetType','widgetDisplayName','renderMethodSelect','widgetUDF'],
+        infobarText='',i=1,pop=false;
+    infobarText += vals[ 'widgetDisplayName' ] + ' : ';
+    for( var item in vals ) {
+        pop=false;
+        i++;
+        if( vals[ item ].length ) {
+            if( $.inArray( item, blacklistKeys ) == -1 ) {
+                infobarText+= item + ' = ' + vals[ item ];  
+                pop=true;
+            }
+            if( item == 'widgetUDF' ) {
+                infobarText += 'UDF = ' + vals[ item ] + '()'; 
+                pop=true;
+            }
+            if( i < count && pop ){
+                infobarText += ' | ';
+            }
+        }
+    }
+    return infobarText;
+}
 
 /*
  * Creates widget for CKEDITOR instance editor
@@ -102,6 +125,7 @@ function insertCBWidget(){
         widgetContent,widgetInfobar,widgetInfobarImage,
         args = form.serializeArray(),
         vals = getFormValues(),
+        infobarText = buildInfobarText( vals, args.length );
     // apply form validator
     form.validate();
     // choose form based on selector
@@ -128,6 +152,7 @@ function updateCBWidget() {
         form = $( '##widget-arguments' ).find( 'form' ),
         args = form.serializeArray(),
         vals=getFormValues(),
+        infobarText=buildInfobarText( vals, args.length );
     // apply form validator
     form.validate();
     // choose form based on selector
