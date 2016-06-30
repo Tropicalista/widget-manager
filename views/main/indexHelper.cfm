@@ -9,6 +9,9 @@ $(document).ready(function() {
     $('.dd').nestable({
         maxDepth: 1
     });
+    $('.dd').on('change', function() {
+        reorder(this.id)
+    });
 
 } );
 
@@ -18,9 +21,11 @@ function getWidgetPreviewURL(){ return '#event.buildLink( prc.cbAdminEntryPoint 
 
 function insertStore( store, interceptionPoint, id ){ 
     if(id){
-        $('[data-id="'+id+'"]').remove()
+        $('[data-id="'+id+'"]').replaceWith(store)
     }
-    $( '##' + interceptionPoint ).append( store );   
+    var wList = $( '##' + interceptionPoint );
+    console.log(store, interceptionPoint)
+    reorder(wList.parent().attr('id'));  
 
 }
 
@@ -49,16 +54,26 @@ function insertEditorContent( interceptionPoint, content ){
         data: {
             widgetContent: content.match(/'(.*?)'/)[1],
             wType: "contentStore",
-            interceptionPoint: interceptionPoint,
+            interceptionPoint: $remoteModal.data().params.interceptionPoint,
             widgetId: $remoteModal.data().params.widgetId
         }
     })
     .success(function(data) {
-        insertStore( data, interceptionPoint, $remoteModal.data().params.widgetId )
+        insertStore( data, $remoteModal.data().params.interceptionPoint, $remoteModal.data().params.widgetId )
     })
     .fail(function(data) {
         console.log( data );
     })
+}
+
+function reorder(id){
+    console.log(id)
+    var i, arr = $('##'+id).nestable('serialize'), len = arr.length;
+    for (i=0; i<len; ++i) {
+      if (i in arr) {
+        $('[data-id="'+arr[i].id+'"]').attr("data-order", i)
+      }
+    }
 }
 
 </script>
