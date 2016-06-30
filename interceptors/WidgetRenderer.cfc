@@ -8,16 +8,12 @@ component extends="coldbox.system.Interceptor" {
 
 		var widgetString = "";
 		for( w in widgets ){
-			if( isJson( w.getWidgetContent() ) ){
+			if( w.getWType() EQ "widget" ) ){
 				myWidget = deserializeJSON( w.getWidgetContent() );
 				widgetContent = evaluate( 'widgetService.getWidget( name=myWidget.widgetName, type=myWidget.widgetType ).#myWidget.renderMethodSelect#( argumentCollection=myWidget )' );
 			}else{
-				myWidget = w.getWidgetContent();
-				var regex = "\'.+\'";
-				myWidget = REMatch( regex, myWidget );
-				myWidget = Replace( myWidget[1], "'", "", "ALL" );
 
-				widgetContent = evaluate( 'widgetService.getWidget( name="ContentStore", type="Core" ).renderIt( slug="contentbox" )' );
+				widgetContent = evaluate( 'widgetService.getWidget( name="ContentStore", type="Core" ).renderIt( slug="#w.getWidgetContent()#" )' );
 			}
 			widgetString &= widgetContent;
 		}
