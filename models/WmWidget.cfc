@@ -2,6 +2,7 @@ component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_
 		
 	property name="widgetId" fieldtype="id" generator="native" setter="false";
 	property name="widgetContent" notnull="true" ormtype="text";
+	property name="wType" notnull="true";
 	property name="interceptionPoint" notnull="true";
 	property name="order" ormtype="integer" notnull="true" default="0";
 
@@ -11,7 +12,7 @@ component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_
 	  "interceptionPoint" = { required=true, requiredMessage="Please insert an interception point!" }
 	};
 
-	Widget function init(){
+	WmWidget function init(){
 		return this;
 	}
 

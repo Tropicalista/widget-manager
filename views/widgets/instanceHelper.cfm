@@ -134,6 +134,7 @@ function insertCBWidget(){
     if( !$widgetForm.valid() ){
         return;
     }
+    console.log($remoteModal.data().params)
     // add selector to args form
     args = form.serializeArray();
     vals = getFormValues();
@@ -171,14 +172,9 @@ function updateCBWidget() {
  * Pushes new element into CKEDITOR instance editor
  * @element {CKEDITOR.dom.element} The CKEDITOR element to insert into the editor
  */
-function addWidgetToList( widget ){
-    console.log(widget)
-    var el = document.createElement('li');
-    el.innerHTML = widgetDisplayName + '<i class="fa fa-times js-remove"></i>';
-    $(el).attr('data-widget', JSON.stringify(widget) );
-    $(el).attr('data-id', widget.id );
-
-    sortable.el.appendChild(el);
+function addWidgetToList( widget, interceptionPoint ){
+    
+    $( '##' + interceptionPoint ).append( widget );
 
     // call via editor interface to insert
     closeRemoteModal();
@@ -188,10 +184,12 @@ function saveWidget(widget){
     $.post('#event.buildLink( prc.cbAdminEntryPoint & ".module.WidgetManager.widget.save" )#',
     {
         widgetContent:JSON.stringify(widget),
+        wType: "widget",
+        interceptionPoint: $remoteModal.data().params.interceptionPoint,
         widgetId: ""
     },
     function(data, status){
-        addWidgetToList(data)
+        addWidgetToList(data,$remoteModal.data().params.interceptionPoint)
     });     
 }
 </script>

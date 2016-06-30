@@ -7,7 +7,7 @@ component {
     function save(event,rc,prc){
 
         event.paramValue("widgetId", "");
-        event.paramValue("interceptionPoint","Core");
+        event.paramValue("wType","widget");
 
         // get it and populate it
         var oWidget = populateModel( widgetService.get(id=rc.widgetID) );
@@ -17,7 +17,19 @@ component {
             // save content
             widgetService.save( oWidget );
 
-            event.renderData( data=serializeJson( oWidget.getMemento() ), contentType="application/json" );
+            var args = {
+                widgetItem  = oWidget,
+                editor = rc.wType EQ "widget" ? "#event.buildLink( prc.cbAdminEntryPoint )#/widgets/editorselector" : "#event.buildLink( prc.cbAdminEntryPoint )#/contentstore/editorselector"
+            };
+            savecontent variable="menuItem" {
+                writeoutput(renderView( 
+                    view="widgetItem", 
+                    args = args,
+                    module="WidgetManager"
+                ));
+            };
+            event.renderData( data=menuItem, type="text" );
+
         }else{
             event.renderData( data=prc.validationResults.getAllErrorsAsJSON(), contentType="application/json", statusCode="500" );
         }
@@ -31,7 +43,7 @@ component {
             // remove
             widgetService.delete( oWidget );
         }
-        event.renderData( data="", contentType="application/json" );
+        event.renderData( data="ok", contentType="text" );
 
     }
 
