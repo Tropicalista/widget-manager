@@ -153,7 +153,6 @@ function updateCBWidget() {
         return;
     }
     // update element attributes and text
-    console.log(vals)
     saveWidget( vals );
     closeRemoteModal();
 }
@@ -162,11 +161,12 @@ function updateCBWidget() {
  * Pushes new element into CKEDITOR instance editor
  * @element {CKEDITOR.dom.element} The CKEDITOR element to insert into the editor
  */
-function addWidgetToList( widget, interceptionPoint ){
+function addWidgetToList( widget, interceptionPoint, id ){
     if(id){
-        $('[data-id="'+id+'"]').remove()
+        $('[data-id="'+id+'"]').replaceWith(widget)
     }
-    $( '##' + interceptionPoint ).append( widget );   
+    var wList = $( '##' + interceptionPoint );
+    reorder(wList.parent().attr('id'));  
     
     // call via editor interface to insert
     closeRemoteModal();
