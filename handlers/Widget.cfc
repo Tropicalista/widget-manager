@@ -19,8 +19,19 @@ component {
 
             var args = {
                 widgetItem  = oWidget,
-                editor = rc.wType EQ "widget" ? "#event.buildLink( prc.cbAdminEntryPoint )#/widgets/editorselector" : "#event.buildLink( prc.cbAdminEntryPoint )#/contentstore/editorselector"
-            };
+            };                          
+            if( oWidget.getWType() EQ "widget" ){
+                args.editor.url = "#event.buildLink( prc.cbAdminEntryPoint & ".module.WidgetManager.main.viewWidgetInstance" )#";
+                args.editor.attr = deserializeJSON(oWidget.getWidgetContent());
+                args.editor.attr.mode = "Edit";
+                args.editor.attr.modal = true;                              
+                args.editor.attr.editorName = "widget";                             
+            }else{
+                args.editor.url = "#event.buildLink( prc.cbAdminEntryPoint )#/contentstore/editorselector";
+                args.editor.attr.editorName = "contentStore";                               
+            }
+            args.editor.attr.interceptionPoint = "beforeSidebar"
+            args.editor.attr.widgetId = oWidget.getWidgetId();
             savecontent variable="menuItem" {
                 writeoutput(renderView( 
                     view="widgetItem", 

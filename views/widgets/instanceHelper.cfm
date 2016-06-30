@@ -1,11 +1,4 @@
 <cfset event.paramValue( "editorName", "" )> 
-<style>
-    .widget-preview {margin-left:340px;}
-    .widget-preview-refresh {font-size:12px;float: right;margin-top:-25px;}
-    .widget-arguments {width:300px;margin-top:5px;float:left;}
-    .widget-preview-content {padding:20px;border:dashed 4px #eaeaea;border-radius:4px;margin-top:20px;}
-    .widget-preview .well h4 {margin:0px;}
-</style>
 <cfoutput>
 <!--- Custom Javascript --->
 <script type="text/javascript">
@@ -147,10 +140,7 @@ function insertCBWidget(){
  * return void
  */
 function updateCBWidget() {
-    var editor = $( "###rc.editorName#" ).ckeditorGet(),
-        element = editor.widgetSelection,
-        textel = element.getChild( 0 ).getChild( 1 ),
-        form = $( '##widget-arguments' ).find( 'form' ),
+    var form = $( '##widget-arguments' ).find( 'form' ),
         args = form.serializeArray(),
         vals=getFormValues(),
         infobarText=buildInfobarText( vals, args.length );
@@ -162,9 +152,9 @@ function updateCBWidget() {
     if( !$widgetForm.valid() ){
         return;
     }
-    textel.setText( infobarText );
     // update element attributes and text
-    element.setAttributes( vals );
+    console.log(vals)
+    saveWidget( vals );
     closeRemoteModal();
 }
 
@@ -173,9 +163,11 @@ function updateCBWidget() {
  * @element {CKEDITOR.dom.element} The CKEDITOR element to insert into the editor
  */
 function addWidgetToList( widget, interceptionPoint ){
+    if(id){
+        $('[data-id="'+id+'"]').remove()
+    }
+    $( '##' + interceptionPoint ).append( widget );   
     
-    $( '##' + interceptionPoint ).append( widget );
-
     // call via editor interface to insert
     closeRemoteModal();
 }
@@ -186,10 +178,10 @@ function saveWidget(widget){
         widgetContent:JSON.stringify(widget),
         wType: "widget",
         interceptionPoint: $remoteModal.data().params.interceptionPoint,
-        widgetId: ""
+        widgetId: $remoteModal.data().params.widgetId
     },
     function(data, status){
-        addWidgetToList(data,$remoteModal.data().params.interceptionPoint)
+        addWidgetToList(data,$remoteModal.data().params.interceptionPoint, $remoteModal.data().params.widgetId)
     });     
 }
 </script>

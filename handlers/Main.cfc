@@ -55,7 +55,7 @@ component {
             event.renderData( data=renderView( view="widgets/instance", layout="ajax", module="WidgetManager" ) );
         }
         else {
-            event.setView( view="widgets/instance", layout="ajax" );
+            event.setView( view="widgets/instance", layout="ajax", module="WidgetManager" );
         }
     }
 
