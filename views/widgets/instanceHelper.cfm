@@ -127,7 +127,6 @@ function insertCBWidget(){
     if( !$widgetForm.valid() ){
         return;
     }
-    console.log($remoteModal.data().params)
     // add selector to args form
     args = form.serializeArray();
     vals = getFormValues();
@@ -162,10 +161,12 @@ function updateCBWidget() {
  * @element {CKEDITOR.dom.element} The CKEDITOR element to insert into the editor
  */
 function addWidgetToList( widget, interceptionPoint, id ){
+    var wList = $( '##' + interceptionPoint ).children();
     if(id){
         $('[data-id="'+id+'"]').replaceWith(widget)
+    }else{
+        wList.append(widget);
     }
-    var wList = $( '##' + interceptionPoint );
     reorder(wList.parent().attr('id'));  
     
     // call via editor interface to insert

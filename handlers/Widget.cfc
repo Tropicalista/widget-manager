@@ -58,5 +58,28 @@ component {
 
     }
 
+    function saveOrder(event,rc,prc){
+        var newOrder = deserializeJSON(rc.data);
+
+        // iterate and perform ordering
+        var index   = 1;
+        var aWidgets  = [];
+        for( var w in newOrder ){
+            var oWidget = widgetService.get( w.id );
+            if( !isNull( oWidget ) ){
+                oWidget.setOrder( w.order );
+                arrayAppend( aWidgets, oWidget );
+            }
+        }
+
+        // save them
+        if( arrayLen( aWidgets ) ){
+            widgetService.saveAll( aWidgets );
+        }
+
+        // render data back
+        event.renderData( type="json", data='true' );
+
+    }
 
 }

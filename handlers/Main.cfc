@@ -16,12 +16,14 @@ component {
     function preHandler( event, action, eventArguments, rc, prc ){
         // Get module root
         prc.moduleRoot = getModuleSettings( "WidgetManager" ).mapping;
+        prc.interceptionPoint = ["cbui_beforeSidebar","cbui_afterSidebar"];
     }
     
     // index
     function index( required any event, required struct rc, required struct prc ){
         // view
-        prc.widgets = widgetManagerService.getAll(asQuery=true);
+        prc.widgets = widgetManagerService.list(asQuery=false);
+        prc.widgets2 = widgetManagerService.list(asQuery=true,sortOrder="interceptionPoint asc");
         event.setView( "main/index" );
     }
 
