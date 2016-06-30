@@ -1,5 +1,5 @@
 <cfoutput>
-<li class="dd-item" data-id="#args.widgetItem.getWidgetId()#">
+<li class="dd-item" id="w_#args.widgetItem.getWidgetId()#" data-id="#args.widgetItem.getWidgetId()#" data-order="#args.widgetItem.getOrder()#">
 	<a class="dd-handle dd3-handle btn" title="Drag to reorder">
 		<i class="fa fa-bars fa-lg"></i>
 	</a>
