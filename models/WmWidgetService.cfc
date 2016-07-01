@@ -3,23 +3,54 @@
 */
 component extends="cborm.models.VirtualEntityService" singleton{
 	
+	property 	name="settingService"			inject="id:settingService@cb" 		persistent="false";
+	property 	name="cachebox" 				inject="cachebox" 					persistent="false";
+
 	/**
 	* Constructor
 	*/
 	function init(){
 		
 		// init super class
-		super.init(entityName="WmWidget");
-		// Use Query Caching
-	    setUseQueryCaching( true );
+		super.init( entityName="WmWidget", useQueryCaching=true );
 
 	    return this;
 	}
 	
+	public any function getAllWidgets() {
 
-	public any function filteredWidgets( required string interceptionPoint = "" ) {
-		var widgets = list( criteria={ interceptionPoint=arguments.interceptionPoint }, sortOrder="wOrder asc", asQuery="false" );
-		return widgets;
+		var settings = settingService.getAllSettings(asStruct=true);
+
+		// caching enabled?
+		if( settings.cb_content_caching ){
+
+			// Build Cache Key
+			var cacheKey = "cb-content-#cgi.http_host#-widgetManager";
+			// Get appropriate cache provider
+			var cache = cacheBox.getCache( settings.cb_content_cacheName );
+			// Try to get content?
+			var cachedContent = cache.get( cacheKey );
+			// Verify it exists, if it does, return it
+			if( !isNull( cachedContent ) AND len( cachedContent ) ){ return cachedContent; }
+
+		}
+
+		var renderedWidgets = list( asQuery="false" );
+
+		// caching enabled?
+		if( settings.cb_content_caching ){
+			// Store content in cache, of local timeouts are 0 then use global timeouts.
+			cache.set(
+				cacheKey,
+				renderedWidgets,
+				settings.cb_content_cachingTimeout,
+				settings.cb_content_cachingTimeoutIdle
+			);
+		}
+
+		// renturn translated content
+		return renderedWidgets;
+
 	}
 
 }
