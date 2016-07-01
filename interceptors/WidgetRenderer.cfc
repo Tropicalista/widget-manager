@@ -3,65 +3,89 @@ component extends="coldbox.system.Interceptor" {
     property name="mywidgetService" inject="id:wmWidgetService@WidgetManager";
 	property name="widgetService" inject="id:widgetService@cb";
 
-	function getWidgetRendered( interceptionPoint ){
-		var widgets = mywidgetService.init().filteredWidgets( arguments.interceptionPoint );
-		var widgetString = "";
-		for( w in widgets ){
-			widgetString &= w.getMemento().content;
-		}
-		appendToBuffer(widgetString);
+	void function configure(){
+		var widgets = mywidgetService.getAllWidgets();
+		if( !propertyExists("widgets") ){
+			setProperty("widgets", widgets );
+		} 
 	}
 
-    public function cbui_afterBodyStart(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+	public any function renderWidget( interceptionP ) {
+		
+		for( w in getProperty("widgets") ){
+			if(w.getinterceptionPoint() EQ interceptionP){
+				appendToBuffer(w.getMemento().widgetContent)
+			}
+		}
+
+	}
+
+    function cbui_afterBodyStart(){
+		renderWidget( getFunctionCalledName() );
+	}
+
     public function cbui_beforeBodyEnd(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_footer(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_beforeContent(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_afterContent(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_beforeSideBar(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_afterSideBar(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_preEntryDisplay(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_postEntryDisplay(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_preIndexDisplay(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_postIndexDisplay(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_preCommentForm(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_postCommentForm(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_prePageDisplay(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_postPageDisplay(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_preArchivesDisplay(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
+    
     public function cbui_postArchivesDisplay(){
-		getWidgetRendered( getFunctionCalledName() );
-    }
+		renderWidget( getFunctionCalledName() );    
+	}
 
 }
