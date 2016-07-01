@@ -1,4 +1,7 @@
-component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_widget" {
+component entityname="wmWidget" 
+			persistent="true" 
+			accessors="true" 		
+			table="cb_wm_widget" {
 		
 	property name="widgetId" fieldtype="id" generator="native" setter="false";
 	property name="widgetContent" notnull="true" ormtype="text";
@@ -29,7 +32,7 @@ component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_
 		var data = {};
 
         data.widgetObject = isJson( getWidgetContent() ) ? deserializeJson( getWidgetContent() ) : getWidgetContent();
-        data.content = renderWidget();
+        data.widgetContent = renderWidget();
         data.id = getWidgetId();
 
 		return data;
