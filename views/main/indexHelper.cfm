@@ -13,29 +13,6 @@ $(document).ready(function() {
         reorder(this.id)
     });
 
-    $("##saveWidget").click(function() {
-        var $btn = $(this);
-        $btn.button('loading');
-        var arr = [];
-        $('[data-order]').each(function() {
-                console.log($(this))
-                arr.push({
-                    id: $(this).attr('data-id'),
-                    order: $(this).attr('data-order')
-                });
-        });
-        $.ajax({
-            type: "POST", 
-            url : "#event.buildLink( prc.cbAdminEntryPoint & ".module.WidgetManager.widget.saveOrder" )#",
-            data: {data:JSON.stringify(arr)}
-        })
-        .success(function(){
-            $btn.button("reset");
-        })
-        .fail(function(data) {
-        })
-    });
-
 } );
 
 function getWidgetInstanceURL(){ return '#event.buildLink( prc.cbAdminEntryPoint & ".module.WidgetManager.main.viewWidgetInstance" )#'; }
@@ -91,20 +68,31 @@ function insertEditorContent( interceptionPoint, content ){
 }
 
 function reorder(id){
-    message();
+
     var i, arr = $('##'+id).nestable('serialize'), len = arr.length;
     for (i=0; i<len; ++i) {
       if (i in arr) {
         $('[data-id="'+arr[i].id+'"]').attr("data-order", i)
       }
     }
+    saveAll();
 }
 
-function message(){
-    var msg = $('##msgWidget'); 
-    if(!msg.is(":visible")){
-        msg.toggleClass("hidden");
-    }
+function saveAll(){
+    var arr = [];
+    $('[data-order]').each(function() {
+            console.log($(this))
+            arr.push({
+                id: $(this).attr('data-id'),
+                wOrder: $(this).attr('data-order')
+            });
+    });
+    $.ajax({
+        type: "POST", 
+        url : "#event.buildLink( prc.cbAdminEntryPoint & ".module.WidgetManager.widget.saveOrder" )#",
+        data: {data:JSON.stringify(arr)}
+    })
+
 }
 
 </script>
