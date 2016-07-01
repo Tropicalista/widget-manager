@@ -1,7 +1,7 @@
 component {
 
     // Dependencies
-    property name="widgetService" inject="entityService:wmWidget";   
+    property name="widgetService" inject="id:wmWidgetService@WidgetManager";   
 
     // save widget
     function save(event,rc,prc){

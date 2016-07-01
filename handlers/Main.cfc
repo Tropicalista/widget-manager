@@ -7,10 +7,7 @@ component {
     property name="HTMLHelper"      inject="HTMLHelper@coldbox";
 
     property name="widgetService"   inject="id:widgetService@cb";
-    property name="widgetManagerService" inject="entityService:wmWidget";
-
-    // Public properties
-    this.preHandler_except = "pager";
+    property name="widgetManagerService" inject="id:wmWidgetService@WidgetManager";
 
     // pre handler
     function preHandler( event, action, eventArguments, rc, prc ){
