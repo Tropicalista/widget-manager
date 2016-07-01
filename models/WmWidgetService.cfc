@@ -18,7 +18,7 @@ component extends="cborm.models.VirtualEntityService" singleton{
 	
 
 	public any function filteredWidgets( required string interceptionPoint = "" ) {
-		var widgets = findAllWhere( criteria={ interceptionPoint=arguments.interceptionPoint }, sortOrder="wOrder asc" );
+		var widgets = list( criteria={ interceptionPoint=arguments.interceptionPoint }, sortOrder="wOrder asc", asQuery="false" );
 		return widgets;
 	}
 
