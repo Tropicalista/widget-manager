@@ -46,7 +46,7 @@ component {
 		// Let's add ourselves to the main menu in the Modules section
 		var menuService = controller.getWireBox().getInstance("AdminMenuService@cb");
 		// Add Menu Contribution
-		menuService.addSubMenu(topMenu=menuService.LOOK_FEEL,name="WidgetManager",label="Widget Manager",href="#menuService.buildModuleLink('WidgetManager','main')#");
+		menuService.addSubMenu(topMenu=menuService.LOOK_FEEL,name="WidgetManager",label="Widgets Manager",href="#menuService.buildModuleLink('WidgetManager','main')#");
 	}
 
 	function onActivate() {
