@@ -67,7 +67,7 @@ component {
         for( var w in newOrder ){
             var oWidget = widgetService.get( w.id );
             if( !isNull( oWidget ) ){
-                oWidget.setOrder( w.order );
+                oWidget.setWOrder( w.Worder );
                 arrayAppend( aWidgets, oWidget );
             }
         }

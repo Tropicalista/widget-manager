@@ -1,5 +1,5 @@
 <cfoutput>
-<li class="dd-item" id="w_#args.widgetItem.getWidgetId()#" data-id="#args.widgetItem.getWidgetId()#" data-order="#args.widgetItem.getOrder()#">
+<li class="dd-item" id="w_#args.widgetItem.getWidgetId()#" data-id="#args.widgetItem.getWidgetId()#" data-order="#args.widgetItem.getWOrder()#">
 	<a class="dd-handle dd3-handle btn" title="Drag to reorder">
 		<i class="fa fa-bars fa-lg"></i>
 	</a>
@@ -18,6 +18,6 @@
 		title="Delete widget"
 		href="javascript:deleteWidget(#args.widgetItem.getWidgetId()#)">
 		<i class="fa fa-trash-o fa-lg"></i>
-	</a>			
+	</a>		
 </li>
 </cfoutput>

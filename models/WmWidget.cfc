@@ -4,11 +4,10 @@ component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_
 	property name="widgetContent" notnull="true" ormtype="text";
 	property name="wType" notnull="true";
 	property name="interceptionPoint" notnull="true";
-	property name="order" ormtype="integer" notnull="true" default="0";
+	property name="wOrder" ormtype="integer" notnull="true" default="0";
 
 	// Non persistent property
 	property name="renderedWidget" persistent="false";
-	property name="interceptorService" inject="coldbox:interceptorService" persistent="false";
 	property 	name="settingService"			inject="id:settingService@cb" 		persistent="false";
 	property 	name="cachebox" 				inject="cachebox" 					persistent="false";
 	property name="widgetService" inject="id:widgetService@cb" persistent="false";
@@ -30,7 +29,7 @@ component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_
 		var data = {};
 
         data.widgetObject = isJson( getWidgetContent() ) ? deserializeJson( getWidgetContent() ) : getWidgetContent();
-        data.content = renderContent();
+        data.content = renderWidget();
         data.id = getWidgetId();
 
 		return data;
@@ -39,7 +38,7 @@ component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_
 	/**
 	* Render widget out using translations, caching, etc.
 	*/
-	any function renderContent() profile{
+	any function renderWidget() profile{
 		var settings = settingService.getAllSettings(asStruct=true);
 
 		// caching enabled?
@@ -59,7 +58,7 @@ component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_
 			lock name="contentbox.widgetrendering.#getWidgetID()#" type="exclusive" throwontimeout="true" timeout="10"{
 				if( NOT len( getRenderedWidget()  ) ){
 					// save content
-					renderedWidget  = renderContentSilent();
+					renderedWidget  = renderWidgetSilent();
 				}
 			}
 		}
@@ -83,7 +82,7 @@ component entityname="wmWidget" persistent="true" accessors="true" table="cb_wm_
 	* Renders the content silently so no caching, or extra fluff is done, just content translation rendering.
 	* @content The content markup to translate, by default it uses the active content version's content
 	*/
-	any function renderContentSilent(any content=getWidgetContent()) profile{
+	any function renderWidgetSilent(any content=getWidgetContent()) profile{
 		// render widget out, prepare builder
 		var widgetString = "";
 
