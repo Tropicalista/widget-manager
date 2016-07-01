@@ -16,14 +16,23 @@ component {
     function preHandler( event, action, eventArguments, rc, prc ){
         // Get module root
         prc.moduleRoot = getModuleSettings( "WidgetManager" ).mapping;
-        prc.interceptionPoint = ["cbui_beforeSidebar","cbui_afterSidebar"];
+        prc.interceptionPoint = [
+            "cbui_afterBodyStart","cbui_beforeBodyEnd",
+            "cbui_footer","cbui_beforeContent",
+            "cbui_afterContent","cbui_beforeSideBar",
+            "cbui_afterSideBar","cbui_preEntryDisplay",
+            "cbui_postEntryDisplay","cbui_preIndexDisplay",
+            "cbui_postIndexDisplay","cbui_preCommentForm",
+            "cbui_postCommentForm","cbui_prePageDisplay",
+            "cbui_postPageDisplay","cbui_preArchivesDisplay",
+            "cbui_postArchivesDisplay"
+        ];
     }
     
     // index
     function index( required any event, required struct rc, required struct prc ){
         // view
         prc.widgets = widgetManagerService.list(asQuery=false);
-        prc.widgets2 = widgetManagerService.list(asQuery=true,sortOrder="interceptionPoint asc");
         event.setView( "main/index" );
     }
 
