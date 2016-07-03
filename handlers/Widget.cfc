@@ -8,11 +8,15 @@ component {
 
         event.paramValue("widgetId", "");
         event.paramValue("wType","widget");
+        event.paramValue("clearCache","0");
 
         // get it and populate it
         var oWidget = populateModel( widgetService.get(id=rc.widgetID) );
         // validate it
         prc.validationResults = validateModel( oWidget );
+        if(rc.clearCache){
+            widgetService.deleteWidgetListFromCache();
+        }
         if( !prc.validationResults.hasErrors() ){
             // save content
             widgetService.save( oWidget );
@@ -30,7 +34,7 @@ component {
                 args.editor.url = "#event.buildLink( prc.cbAdminEntryPoint )#/contentstore/editorselector";
                 args.editor.attr.editorName = "contentStore";                               
             }
-            args.editor.attr.interceptionPoint = "beforeSidebar"
+            args.editor.attr.interceptionPoint = oWidget.getInterceptionPoint();
             args.editor.attr.widgetId = oWidget.getWidgetId();
             savecontent variable="menuItem" {
                 writeoutput(renderView( 
@@ -52,6 +56,7 @@ component {
 
         if( !isNull(oWidget) ){
             // remove
+            widgetService.deleteWidgetListFromCache( rc.widgetId );
             widgetService.delete( oWidget );
         }
         event.renderData( data="ok", contentType="text" );
@@ -60,6 +65,7 @@ component {
 
     function saveOrder(event,rc,prc){
         var newOrder = deserializeJSON(rc.data);
+        widgetService.deleteWidgetListFromCache();
 
         // iterate and perform ordering
         var index   = 1;

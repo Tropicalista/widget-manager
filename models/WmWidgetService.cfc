@@ -53,4 +53,24 @@ component extends="cborm.models.VirtualEntityService" singleton{
 
 	}
 
+	public any function deleteWidgetListFromCache() {
+
+		var settings = settingService.getAllSettings(asStruct=true);
+
+		// caching enabled?
+		if( settings.cb_content_caching ){
+
+			// Build Cache Key
+			var cacheKey = "cb-content-#cgi.http_host#-widgetManager";
+			// Get appropriate cache provider
+			var cache = cacheBox.getCache( settings.cb_content_cacheName );
+			// Try to get content?
+			var cachedContent = cache.clearKey( cacheKey );
+
+		}
+
+		//getAllWidgets();
+
+	}
+
 }

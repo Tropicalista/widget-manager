@@ -42,19 +42,6 @@ component entityname="wmWidget"
 	* Render widget out using translations, caching, etc.
 	*/
 	any function renderWidget() profile{
-		var settings = settingService.getAllSettings(asStruct=true);
-
-		// caching enabled?
-		if( settings.cb_content_caching ){
-			// Build Cache Key
-			var cacheKey = "cb-content-#cgi.http_host#-widgetManager-#getWidgetID()#";
-			// Get appropriate cache provider
-			var cache = cacheBox.getCache( settings.cb_content_cacheName );
-			// Try to get content?
-			var cachedContent = cache.get( cacheKey );
-			// Verify it exists, if it does, return it
-			if( !isNull( cachedContent ) AND len( cachedContent ) ){ return cachedContent; }
-		}
 
 		// Check if we need to translate
 		if( NOT len( getRenderedWidget()  ) ){
@@ -64,17 +51,6 @@ component entityname="wmWidget"
 					renderedWidget  = renderWidgetSilent();
 				}
 			}
-		}
-
-		// caching enabled?
-		if( settings.cb_content_caching ){
-			// Store content in cache, of local timeouts are 0 then use global timeouts.
-			cache.set(
-				cacheKey,
-				renderedWidget,
-				settings.cb_content_cachingTimeout,
-				settings.cb_content_cachingTimeoutIdle
-			);
 		}
 
 		// renturn translated content

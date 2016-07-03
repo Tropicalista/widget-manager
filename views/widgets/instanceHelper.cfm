@@ -131,7 +131,7 @@ function insertCBWidget(){
     args = form.serializeArray();
     vals = getFormValues();
     // create new widget element
-    saveWidget( vals );
+    saveWidget( vals, false );
 }
 
 /*
@@ -152,7 +152,7 @@ function updateCBWidget() {
         return;
     }
     // update element attributes and text
-    saveWidget( vals );
+    saveWidget( vals, true );
     closeRemoteModal();
 }
 
@@ -173,13 +173,15 @@ function addWidgetToList( widget, interceptionPoint, id ){
     closeRemoteModal();
 }
 
-function saveWidget(widget){
+function saveWidget(widget,clearCache){
+    console.log(clearCache)
     $.post('#event.buildLink( prc.cbAdminEntryPoint & ".module.WidgetManager.widget.save" )#',
     {
         widgetContent:JSON.stringify(widget),
         wType: "widget",
         interceptionPoint: $remoteModal.data().params.interceptionPoint,
-        widgetId: $remoteModal.data().params.widgetId
+        widgetId: $remoteModal.data().params.widgetId,
+        clearCache: clearCache
     },
     function(data, status){
         addWidgetToList(data,$remoteModal.data().params.interceptionPoint, $remoteModal.data().params.widgetId)
