@@ -4,15 +4,12 @@ component extends="coldbox.system.Interceptor" {
 	property name="widgetService" inject="id:widgetService@cb";
 
 	void function configure(){
-		var widgets = mywidgetService.getAllWidgets();
-		if( !propertyExists("widgets") ){
-			setProperty("widgets", widgets );
-		} 
 	}
 
 	public any function renderWidget( interceptionP ) {
 		
-		for( w in getProperty("widgets") ){
+		var widgets = mywidgetService.getAllWidgets();
+		for( w in widgets ){
 			if(w.getinterceptionPoint() EQ interceptionP){
 				appendToBuffer(w.getMemento().widgetContent)
 			}

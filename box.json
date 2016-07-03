@@ -12,7 +12,7 @@
         "type":"git",
         "URL":"https://github.com/contentbox-modules/widget-manager"
     },
-    "bugs":"https://github.com/contentbox-modules/issues",
+    "bugs":"https://github.com/contentbox-modules/widget-manager/issues",
     "slug":"widget-manager",
     "shortDescription":"A module to manage widget and contentstore with drag&drop",
     "description":"With this module you have a drag and drop feature to plce your widget in your theme. It can be very useful to manage your layouts.",

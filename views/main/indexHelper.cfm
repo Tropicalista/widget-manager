@@ -20,7 +20,6 @@ function getWidgetInstanceURL(){ return '#event.buildLink( prc.cbAdminEntryPoint
 function getWidgetPreviewURL(){ return '#event.buildLink( prc.cbAdminEntryPoint & ".widgets.preview" )#'; }
 
 function insertStore( store, interceptionPoint, id ){ 
-    console.log(interceptionPoint)
     var wList = $( '##' + interceptionPoint ).children();
     if(id){
         $('[data-id="'+id+'"]').replaceWith(store)
@@ -44,7 +43,6 @@ function deleteWidget( id ){
         closeConfirmations();
     })
     .fail(function(data) {
-        console.log( data );
     })
 }
 
@@ -63,7 +61,6 @@ function insertEditorContent( interceptionPoint, content ){
         insertStore( data, $remoteModal.data().params.interceptionPoint, $remoteModal.data().params.widgetId )
     })
     .fail(function(data) {
-        console.log( data );
     })
 }
 
@@ -81,7 +78,7 @@ function reorder(id){
 function saveAll(){
     var arr = [];
     $('[data-order]').each(function() {
-            console.log($(this))
+
             arr.push({
                 id: $(this).attr('data-id'),
                 wOrder: $(this).attr('data-order')
