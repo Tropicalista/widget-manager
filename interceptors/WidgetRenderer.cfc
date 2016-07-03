@@ -3,9 +3,6 @@ component extends="coldbox.system.Interceptor" {
     property name="mywidgetService" inject="id:wmWidgetService@WidgetManager";
 	property name="widgetService" inject="id:widgetService@cb";
 
-	void function configure(){
-	}
-
 	public any function renderWidget( interceptionP ) {
 		
 		var widgets = mywidgetService.getAllWidgets();

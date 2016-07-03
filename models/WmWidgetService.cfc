@@ -35,7 +35,7 @@ component extends="cborm.models.VirtualEntityService" singleton{
 
 		}
 
-		var renderedWidgets = list( asQuery="false" );
+		var renderedWidgets = list( asQuery="false", sortOrder="wOrder" );
 
 		// caching enabled?
 		if( settings.cb_content_caching ){
