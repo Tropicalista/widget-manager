@@ -10,10 +10,10 @@ component entityname="wmWidget"
 	property name="wOrder" ormtype="integer" notnull="true" default="0";
 
 	// Non persistent property
-	property name="renderedWidget" persistent="false";
-	property 	name="settingService"			inject="id:settingService@cb" 		persistent="false";
-	property 	name="cachebox" 				inject="cachebox" 					persistent="false";
-	property name="widgetService" inject="id:widgetService@cb" persistent="false";
+	property name="renderedWidget" 	persistent="false";
+	property name="settingService"	inject="id:settingService@cb" 		persistent="false";
+	property name="cachebox"		inject="cachebox" 					persistent="false";
+	property name="widgetService" 	inject="id:widgetService@cb" persistent="false";
 
 	// Validation
 	this.constraints = {
@@ -26,7 +26,7 @@ component entityname="wmWidget"
 	}
 
 	/**
-	* Get a flat representation of this dashboard
+	* Get a flat representation of this widget
 	*/
 	public struct function getMemento(string exclude=""){
 		var data = {};
