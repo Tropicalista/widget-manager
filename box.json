@@ -19,29 +19,9 @@
     "instructions":"",
     "changelog":"",
     "type":"contentbox-modules",
-    "keywords":"widget,drag&drop,widget manager",
-    "private":false,
-    "engines":[
-        {
-            "type":"",
-            "version":""
-        }
-    ],
-    "defaultEngine":"",
-    "defaultPort":0,
-    "projectURL":"",
-    "license":[
-        {
-            "type":"",
-            "URL":""
-        }
-    ],
     "scripts":{
-        
-    },
-    "ignore":[
-        "**/.*",
-        "test",
-        "tests"
-    ]
+        "postVersion":"package set location='https://github.com/Tropicalista/widget-manager/archive/master.zip'",
+        "onRelease":"publish",
+        "postPublish":"!git push && !git push --tags"
+    }
 }
