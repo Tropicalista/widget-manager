@@ -22,7 +22,7 @@
 				                widgetItem  = w,
 				            };		        			
 		        			if( w.getWType() EQ "widget" ){
-		        				args.editor.url = "#event.buildLink( prc.cbAdminEntryPoint & ".module.WidgetManager.main.viewWidgetInstance" )#";
+		        				args.editor.url = "#event.buildLink( prc.cbAdminEntryPoint & ".widgets.viewWidgetInstance" )#";
 		        				args.editor.attr = deserializeJSON(w.getWidgetContent());
 		        				args.editor.attr.mode = "Edit";
 		        				args.editor.attr.modal = true;		        				
