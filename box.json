@@ -2,7 +2,7 @@
     "name":"Widget manager",
     "version":"1.2.0",
     "author":"Francesco Pepe",
-    "location":"https://github.com/Tropicalista/widget-manager/archive/master.zip",
+    "location":"https://github.com/contentbox-modules/widget-manager/archive/master.zip",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"",
@@ -20,7 +20,7 @@
     "changelog":"",
     "type":"contentbox-modules",
     "scripts":{
-        "postVersion":"package set location='https://github.com/Tropicalista/widget-manager/archive/master.zip'",
+        "postVersion":"package set location='https://github.com/contentbox-modules/widget-manager/archive/master.zip'",
         "onRelease":"publish",
         "postPublish":"!git push && !git push --tags"
     }
