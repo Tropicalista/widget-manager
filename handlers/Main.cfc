@@ -33,38 +33,4 @@ component {
         event.setView( "main/index" );
     }
 
-    function viewWidgetInstance( event, rc, prc ) {
-        // param data
-        event.paramValue( "modal", false )
-            .paramValue( "test", false )
-            .paramValue( "widgetudf", "renderIt" );
-
-        // get widget
-        var widget  = widgetService.getWidget( name=rc.widgetname, type=rc.widgettype );
-        prc.md      = widgetService.getWidgetRenderArgs( udf=rc.widgetudf, widget=rc.widgetname, type=rc.widgettype );
-        prc.widget = {
-            name        = rc.widgetname,
-            widgetType  = rc.widgettype,
-            widget      = widget,
-            udf         = rc.widgetudf,
-            module      = find( "@", rc.widgetname ) ? listGetAt( rc.widgetname, 2, '@' ) : "",
-            category    = !isNull( widget.getCategory() ) ? 
-                            widget.getCategory() : 
-                            rc.widgetType=="Core" ?
-                                "Miscellaneous" :
-                                rc.widgetType,
-            icon        = !isNull( widget.getIcon() ) ? widget.getIcon() : ""
-        };
-        // get its metadata
-        prc.metadata = widget.getPublicMethods();
-        prc.vals = rc;
-        prc.vals[ "widgetUDF" ] = prc.widget.udf;
-        if( event.isAjax() ) {
-            event.renderData( data=renderView( view="widgets/instance", layout="ajax", module="WidgetManager" ) );
-        }
-        else {
-            event.setView( view="widgets/instance", layout="ajax", module="WidgetManager" );
-        }
-    }
-
 }
