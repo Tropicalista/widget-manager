@@ -2,17 +2,17 @@
     "name":"Widget manager",
     "version":"1.4.0",
     "author":"Francesco Pepe",
-    "location":"https://github.com/contentbox-modules/widget-manager/archive/master.zip",
+    "location":"https://github.com/Tropicalista/widget-manager/archive/master.zip",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"",
-    "homepage":"https://github.com/contentbox-modules/widget-manager",
+    "homepage":"https://github.com/Tropicalista/widget-manager",
     "documentation":"",
     "repository":{
         "type":"git",
-        "URL":"https://github.com/contentbox-modules/widget-manager"
+        "URL":"https://github.com/Tropicalista/widget-manager"
     },
-    "bugs":"https://github.com/contentbox-modules/widget-manager/issues",
+    "bugs":"https://github.com/Tropicalista/widget-manager/issues",
     "slug":"widget-manager",
     "shortDescription":"A module to manage widget and contentstore with drag&drop",
     "description":"With this module you have a drag and drop feature to plce your widget in your theme. It can be very useful to manage your layouts.",
@@ -20,7 +20,7 @@
     "changelog":"",
     "type":"contentbox-modules",
     "scripts":{
-        "postVersion":"package set location='https://github.com/contentbox-modules/widget-manager/archive/master.zip'",
+        "postVersion":"package set location='https://github.com/Tropicalista/widget-manager/archive/master.zip'",
         "onRelease":"publish",
         "postPublish":"!git push && !git push --tags"
     }
